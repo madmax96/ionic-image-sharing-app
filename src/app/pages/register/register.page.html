@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Register</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content  color="primary">
+    <ion-grid class="h-100">
+        <ion-row class="h-100" align-items-center justify-content-center>
+          <ion-col size="12">
+            <form  #form="ngForm" (ngSubmit)="register(form)">
+              <ion-grid>
+                <ion-row color="primary" justify-content-center>
+                  <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+                    <div text-center>
+                        <ion-spinner name="circles" *ngIf="sendingRequest"></ion-spinner>
+                      <h3>Create your account!</h3>
+                      <ion-text color="success" *ngIf="!sendingRequest && success===true">
+                          Account created succesfully
+                      </ion-text>
+                      <ion-text color="danger" *ngIf="!sendingRequest && success===false">
+                          Account creation failed. Please try again later.
+                      </ion-text>
+                    </div>
+                    <div padding>
+                      <ion-item>
+                        <ion-input [class.invalid]="true" name="fullname" type="text" placeholder="Full Name" ngModel required></ion-input>
+                      </ion-item>
+                      <ion-item>
+                        <ion-input (ionBlur)="checkUsername(form.value.username)" name="username" type="text" placeholder="Username" ngModel required></ion-input>
+                        <ion-text color="danger" *ngIf="!usernameAvailable">Username is not available</ion-text>
+                      </ion-item>
+                      <ion-item>
+                        <ion-input name="email" type="email" placeholder="your@email.com" ngModel required></ion-input>
+                      </ion-item>
+                      <ion-item>
+                        <ion-input name="password" type="password" placeholder="Password" ngModel required></ion-input>
+                      </ion-item>
+                      <ion-item>
+                        <ion-input name="confirm" type="password" placeholder="Password again" ngModel required></ion-input>
+                      </ion-item>
+                    </div>
+                    <div padding>
+                      <ion-button  size="large" type="submit" [disabled]="form.invalid || sendingRequest || !usernameAvailable" expand="block">
+                        Register
+                      </ion-button>
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+              <ion-button routerLink="/login" routerDirection="root" size="small">
+                <ion-icon name="arrow-back"></ion-icon>
+                Back to Login
+              </ion-button>
+            </form>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+  </ion-content>
