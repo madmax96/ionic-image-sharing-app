@@ -11,16 +11,21 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UserService } from './services/api/user.service';
 import { SessionService } from './services/session.service'
+import { ImageService } from './services/api/image.service'
+
+import { IonicStorageModule } from '@ionic/storage';
+import { ComponentsModule } from './components/components.module';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, HttpClientModule,IonicModule.forRoot(), AppRoutingModule],
+  imports: [BrowserModule, HttpClientModule,IonicModule.forRoot(),IonicStorageModule.forRoot(), AppRoutingModule,ComponentsModule],
   providers: [
     StatusBar,
     SplashScreen,
     UserService,
     SessionService,
+    ImageService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

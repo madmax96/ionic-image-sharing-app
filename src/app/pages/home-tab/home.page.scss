@@ -1,0 +1,24 @@
+.welcome-card img {
+  max-height: 35vh;
+  overflow: hidden;
+}
+
+
+.notification-icon {
+  position: relative;
+  width: 40px;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  &__label {
+    position: absolute;
+    border-radius: 50%;
+    color: white;
+    font-weight: bold;
+    background-color: red;
+    font-size: 13px;
+    padding: 0 3px;
+    bottom: 0;
+    right: 0;
+  }
+}

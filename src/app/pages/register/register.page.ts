@@ -21,30 +21,36 @@ export class RegisterPage implements OnInit {
     this.sendingRequest = false;
     this.success = null;
   }
+
   ionViewWillEnter(){
     this.sendingRequest = false;
     this.success = null;
   }
+
   register(form: NgForm) {
     this.sendingRequest = true;
     const {confirm, ...dataToSend} = form.value
     const data = JSON.stringify(dataToSend);
 
     this.userService.createUser(data)
-      .subscribe(() => {
-        this.sendingRequest = false;
+      .then(() => {
         this.success=true;
-      }, err => {
-        this.sendingRequest = false;
+        form.resetForm()
+      })
+      .catch(err => {
         this.success = false
+      })
+      .finally(()=>{
+        this.sendingRequest = false;
       })
   }
 
   checkUsername(username){
     if(!username) return;
     this.userService.checkUsername(username)
-      .subscribe((data: {available:Boolean}) => {
+      .then((data: {available:Boolean}) => {
           this.usernameAvailable=data.available;
-      }, err => {})
+      })
+      .catch(()=>{});
   }
 }

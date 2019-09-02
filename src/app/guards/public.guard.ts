@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class PublicGuard implements CanActivate {
 
   constructor(
     private sessionService: SessionService,
@@ -19,16 +19,21 @@ export class AuthGuard implements CanActivate {
 
     // Get the current authentication state from a Service!
     let userAuthenticated = this.sessionService.getToken() && this.sessionService.getUser();
-    if(userAuthenticated) return true;
-    const authToken = await this.storage.get('auth_token');
-    if (!authToken) {
-      return this.router.parseUrl('login')
+
+    if (userAuthenticated) {
+        return this.router.parseUrl('app')
     }
+    const authToken = await this.storage.get('auth_token');
+
+    if (!authToken) {
+      return true;
+    }
+
     try {
       await this.sessionService.getSession(authToken);
-      return true;
+      return this.router.parseUrl('app')
     } catch (err) {
-      return this.router.parseUrl('login')
+      return true;
     }
   }
 }

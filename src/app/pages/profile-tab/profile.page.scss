@@ -1,0 +1,45 @@
+
+.low-z{
+    z-index: -1;
+}
+.profile-picture{
+    margin-top: 10px;
+    --border-radius: 5%;
+    --size: 120px;
+    position: relative;
+    &:hover {
+        .profile-picture__add {
+            display: block;
+        }
+    }
+    &__add {
+        position: absolute;
+        top:50%;
+        left:50%;
+        transform:translate(-50%, -50%);
+        display:none;
+    }
+}
+.add-post-modal {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    width: 90%;
+    height: 70%;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0.1;
+    transition: all .25s ease-in-out;
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+    z-index: 1000;
+    &--opened{
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+    background-color: white;
+}
+
+.select-image{
+    --size: 200px;
+}

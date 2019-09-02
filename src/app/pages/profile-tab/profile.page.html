@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Profile
+    </ion-title>
+  </ion-toolbar>
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openAddPostModal()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-header>
+
+<div class="add-post-modal {{modalOpened && 'add-post-modal--opened'}}">
+  <ion-grid>
+    <ion-row justify-content-center>
+      <ion-thumbnail class="select-image">
+          <img src="{{newPostBase64Image || '/assets/user-placeholder.png'}}"/>
+      </ion-thumbnail>
+    </ion-row>
+    <ion-row justify-content-center class="ion-margin-top">
+        <input (change)="onPostPictureSelected($event)" type="file" accept="image/*" id="postPictureFileInput" hidden/>
+        <ion-button size="small" color="primary" (click)="openFileBrowser('postPictureFileInput')">Select Image</ion-button>
+    </ion-row>
+    <ion-row justify-content-center class="ion-margin-top">
+        <ion-text>Write short description</ion-text>
+        <ion-item>
+          <ion-input type="text" placeholder="Your description" [(ngModel)]="newPostDescription" required></ion-input>
+        </ion-item>
+    </ion-row>
+    <ion-row justify-content-center padding>
+        <ion-button color="primary" (click)="makeNewPost()" [disabled]="!newPostDescription || !newPostBase64Image" >Post</ion-button>
+    </ion-row>
+    <ion-row justify-content-end>
+        <ion-button color="danger" (click)="closeAddPostModal()">Cancel</ion-button>
+    </ion-row>
+  </ion-grid>
+</div>
+
+<ion-content class="content">
+  <ion-grid>
+    <ion-row align-items-center>
+      <ion-col>
+        <ion-thumbnail class="profile-picture">
+          <img src="{{user.profile_picture || '/assets/user-placeholder.png'}}"/>
+          <ion-icon size="large" class="profile-picture__add" name="add-circle" (click) = "openFileBrowser('profilePictureFileInput')"></ion-icon>
+          <input (change)="onProfilePictureSelected($event)" type="file" accept="image/*" id="profilePictureFileInput" hidden>
+        </ion-thumbnail>
+      </ion-col>
+      <ion-col>
+        <p>{{user.username}}</p>
+        <p>{{user.email}}</p>
+        <p>{{user.fullname}}</p>
+        <p></p>
+      </ion-col>
+    </ion-row>
+    <ion-row justify-content-center>
+      <ion-col *ngFor="let post of posts" size="12">
+        <app-post [post]="post" [onDelete]="handlePostDelete.bind(this)"></app-post>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <div class="notification-icon">
+        <ion-icon name="notifications" size="large"></ion-icon>
+        <div class="notification-icon__label"> 3 </div>
+    </div>
+    <ion-title>
+      Welcome
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row justify-content-center>
+    <ion-col *ngFor="let post of posts" size="12">
+      <app-post [post]="post"></app-post>
+    </ion-col>
+  </ion-row>
+</ion-content>

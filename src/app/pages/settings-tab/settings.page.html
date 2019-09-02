@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Settings
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-text slot="start">Total Posts</ion-text>
+    <ion-badge slot="end">{{stats.total_posts}}</ion-badge>
+  </ion-item>
+
+  <ion-item>
+    <ion-text slot="start">Total Likes</ion-text>
+    <ion-badge slot="end" color="secondary">{{stats.total_likes}}</ion-badge>
+  </ion-item>
+
+  <ion-item>
+    <span slot="start">Avg likes per post</span>
+    <ion-badge slot="end" color="danger">{{stats.avg_likes}}</ion-badge>
+  </ion-item>
+
+  <ion-row justify-content-center padding class="ion-margin-top">
+    <ion-col size="12">
+      <ion-item>
+        <ion-label> Notifications </ion-label>
+        <ion-toggle color="primary"></ion-toggle>
+      </ion-item>
+    </ion-col>
+    <ion-col class="ion-margin-top">
+      <ion-button class="ion-float-right" color="danger" (click)="handleLogout()">Logout</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-content>

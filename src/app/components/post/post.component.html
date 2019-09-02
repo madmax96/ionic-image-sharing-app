@@ -1,0 +1,21 @@
+<ion-grid class="post">
+  <ion-row class="post__header" align-items-center justify-content-between>
+    <ion-row align-items-center>
+      <img src="{{post.user.profile_picture || '/assets/user-placeholder.png'}}">
+      <ion-text class="ion-margin-horizontal">{{post.user.username}}</ion-text>
+    </ion-row>
+    <ion-col>
+      <ion-button *ngIf="!!onDelete" color="danger" size="small" class="ion-float-right" (click)="onDelete(post.id)"> Delete </ion-button>
+    </ion-col>
+  </ion-row>
+  <ion-row justify-content-center>
+      <img class="post__image" src="{{post.image_url}}">
+  </ion-row>
+  <ion-row class="post__footer" justify-content-between>
+      <span class="post__footer__likes">
+        <ion-icon name="heart" size="medium" color="{{hasLiked ? 'danger' : ''}}" (click)="handlePostLike()" ></ion-icon>
+        <span class="post__footer__likes__num"> {{numOfLikes}} </span>
+      </span>
+      <ion-text>{{post.description}}</ion-text>
+  </ion-row>
+</ion-grid>

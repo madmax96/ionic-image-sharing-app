@@ -11,6 +11,9 @@
             <form #form="ngForm" (ngSubmit)="login(form)">
                 <ion-col align-self-center>
                   <div text-center>
+                    <ion-text color="danger" *ngIf="loginError">
+                        Login failed. Password or email are incorect.
+                    </ion-text>
                     <h3>Login</h3>
                   </div>
                   <div padding>
@@ -32,7 +35,7 @@
                       </ion-text>
                     </ion-col>
                     <ion-col size="3">
-                      <ion-button size="small" onclick="" routerDirection="root" routerLink="/register">Register </ion-button>
+                      <ion-button size="small" routerDirection="root" routerLink="/register">Register </ion-button>
                     </ion-col>
                 </ion-row>
             </form>
