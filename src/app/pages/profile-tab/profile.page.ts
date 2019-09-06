@@ -36,8 +36,10 @@ export class ProfilePage implements OnInit {
   }
 
   clearFileInput(elementId){
-    document.getElementById(elementId).value= '';
+    const input: any = document.getElementById(elementId);
+    input.value= '';
   }
+
   async onProfilePictureSelected($event){
     let [image] = $event.target.files;
     const base64ImgData:string = await this.encodeImageFileAsURL(image);

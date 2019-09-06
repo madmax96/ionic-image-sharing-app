@@ -30,7 +30,7 @@ export class ImageService {
     return this.http
     .patch(`${this.API_URL}/user`,data, httpOptions)
     .toPromise()
-    .then(user=>{
+    .then((user:any)=>{
       user.profile_picture = `${this.API_URL}/images/${user.profile_picture}?auth-token=${token}`;
       this.sessionService.setUser(user);
       return user;

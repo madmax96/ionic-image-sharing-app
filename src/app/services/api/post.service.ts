@@ -18,7 +18,6 @@ export class PostService {
    }
 
   createPost(data){
-
     const httpOptions = {
       headers: new HttpHeaders({
         ...this.baseHttpHeaders,
@@ -30,7 +29,7 @@ export class PostService {
 
     return this.http.post(`${this.API_URL}/posts`,JSON.stringify(data),httpOptions)
     .toPromise()
-    .then(post=>{
+    .then((post:any)=>{
       post.user = user;
       post.image_url = `${this.API_URL}/images/${post.image_filename}?auth-token=${token}`;
       post.likes = [];
