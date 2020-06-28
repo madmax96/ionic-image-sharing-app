@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SessionService } from 'src/app/services/session.service';
 import { WebsocketService } from 'src/app/services/websocket.service';
 import { IonContent } from '@ionic/angular';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-chat-window',
@@ -62,6 +63,11 @@ export class ChatWindowPage implements OnInit {
   }
 
   receiveMessage(data) {
+
+    if (data.type==='image'){
+      // for image message content field is image url
+      data.content = `${environment.API_URL}/images/${data.content}?auth-token=${this.SessionService.getToken()}`
+    }
     this.data.messages.push({
       createdAt: (new Date()).toUTCString(),
       ...data
