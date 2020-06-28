@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Chat with Subscribers</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <ion-list>
+    <ion-item *ngFor="let sub of subscribers" class="chat_user" (click)="openChat(sub)">
+      <ion-avatar slot="start">
+        <img src="{{sub.profile_picture || '/assets/user-placeholder.png'}}">
+      </ion-avatar>
+      <ion-label>
+        <h2>Username: {{sub.username}}</h2>
+        <h3>Email: {{sub.email}} </h3>
+        <p>Full Name: {{sub.fullname}}</p>
+      </ion-label>
+      <ion-label class="ion-text-center">
+        <ion-badge color="primary">{{sub.unreadsCount}}</ion-badge>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

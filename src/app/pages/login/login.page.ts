@@ -23,9 +23,10 @@ export class LoginPage implements OnInit {
       // go to home page
       this.navCtrl.navigateForward('/app/home');
     })
-    .catch(err=>{
+    .catch(err => {
       // show err message
       this.loginError= true;
     })
   }
 }
+

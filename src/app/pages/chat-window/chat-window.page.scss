@@ -1,0 +1,26 @@
+.message {
+    display:flex;
+    flex-direction: column;
+    background-color: aliceblue;
+    padding: .6rem;
+    border-radius: 2%;
+    &__wrapper{
+
+    }
+    &__createdAt{
+        font-size: .3rem;
+    }
+    &__content {
+
+    }
+    &__seen {
+        display: flex;
+        font-size: .8rem;
+        align-self: flex-end;
+        align-items: center;
+        justify-content: center;
+    }
+    &--other{
+        background-color: #92e47d!important;
+    }
+}

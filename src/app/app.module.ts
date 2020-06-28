@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UserService } from './services/api/user.service';
 import { SessionService } from './services/session.service'
+import { WebsocketService } from './services/websocket.service'
 import { ImageService } from './services/api/image.service'
 
 import { IonicStorageModule } from '@ionic/storage';
@@ -25,6 +26,7 @@ import { ComponentsModule } from './components/components.module';
     SplashScreen,
     UserService,
     SessionService,
+    WebsocketService,
     ImageService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

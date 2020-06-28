@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Your chat with {{data.user.username}}</ion-title>
+    <ion-avatar>
+      <img src="{{data.user.profile_picture}}">
+    </ion-avatar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content #myContent>
+  <ion-row justify-content-center>
+    <ion-col *ngFor="let message of data.messages" size="12">
+      <ion-row class="{{message.self ? 'ion-justify-content-start' : 'ion-justify-content-end'}}">
+        <ion-col size="6">
+          <div class="{{message.self ? 'message' : 'message message--other'}}">
+            <div class="message__wrapper">
+              <span class="message__createdAt">at: {{message.createdAt}}</span>
+              <p class="message__content" *ngIf="message.type==='text'">{{message.content}}</p>
+              <ion-img [src]="message.content" *ngIf="message.type==='image'"></ion-img>
+            </div>
+            <span class="message__seen" *ngIf="message.self">
+              Seen:
+              <ion-icon name="close-circle" *ngIf="!message.seen"></ion-icon>
+              <ion-icon name="checkmark-circle" *ngIf="message.seen"></ion-icon>
+            </span>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-col>
+  </ion-row>
+
+</ion-content>
+<ion-footer class="ion-padding-horizontal">
+  <ion-row class="ion-align-items-center">
+    <ion-input placeholder="Enter Message" type="text" [(ngModel)]="textMessage" (ionFocus)="emmitSeen()"></ion-input>
+    <ion-icon size="small" name="add-circle" (click)="openFileBrowser('messageImageInput')"></ion-icon>
+    <input (change)="onMessageImageSelected($event)" type="file" accept="image/*" id="messageImageInput" hidden>
+    <ion-button color="primary" clear item-right (click)="sendTextMessage()">Send</ion-button>
+  </ion-row>
+</ion-footer>

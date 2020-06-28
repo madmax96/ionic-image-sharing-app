@@ -23,7 +23,8 @@ const routes: Routes = [
     path: 'register',
     loadChildren: './pages/register/register.module#RegisterPageModule',
     canActivate: [PublicGuard]
-  }
+  },
+  { path: 'chat-window', loadChildren: './pages/chat-window/chat-window.module#ChatWindowPageModule' }
 ];
 @NgModule({
   imports: [

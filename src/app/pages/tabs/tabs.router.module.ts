@@ -43,6 +43,26 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'chat',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../chat-tab/chat-tab.module').then(m => m.ChatTabPageModule)
+          }
+        ]
+      },
+      {
+        path: 'chat-window',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../chat-window/chat-window.module').then(m => m.ChatWindowPageModule)
+          }
+        ]
+      },
+      {
         path: '',
         redirectTo: '/app/home',
         pathMatch: 'full'

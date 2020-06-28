@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
+import {WebsocketService} from './websocket.service'
 import {environment} from '../../environments/environment';
 
 @Injectable({
@@ -15,38 +16,39 @@ export class SessionService {
   API_URL:string = environment.API_URL
   private authToken:string = null;
   private authUser:any = null;
-  constructor(private http: HttpClient, private storage: Storage) { }
+  constructor(private http: HttpClient, private storage: Storage, private WebsocketService: WebsocketService) { }
 
-  createSession(data) {
-    return this.http
-    .post(`${this.API_URL}/session`,data, {...this.baseHttpOptions, observe:'response'})
-    .toPromise()
-    .then((response:any) => {
-      const authToken = response.headers.get('Auth-Token');
-      this.storage.set('auth_token', authToken);
-      this.authToken = authToken
-      this.authUser = response.body;
-      this.authUser.profile_picture = this.authUser.profile_picture && `${this.API_URL}/images/${this.authUser.profile_picture}?auth-token=${this.authToken}`
-    })
+  async createSession(data) {
+
+    const response = await this.http
+                    .post(`${this.API_URL}/session`,data, {...this.baseHttpOptions, observe:'response'})
+                    .toPromise();
+
+    const authToken = response.headers.get('Auth-Token');
+    this.storage.set('auth_token', authToken);
+    this.authToken = authToken
+    this.authUser = response.body;
+    this.authUser.profile_picture = this.authUser.profile_picture && `${this.API_URL}/images/${this.authUser.profile_picture}?auth-token=${this.authToken}`
+    await this.connectToWebsocket();
    }
 
-  getSession(token) {
+  async getSession(token) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Auth-Token': token,
       })
     };
-    return this.http.get(`${this.API_URL}/session`,httpOptions)
-    .toPromise()
-    .then((response:any) => {
+    try {
+      const response = await this.http.get(`${this.API_URL}/session`,httpOptions)
+      .toPromise();
       this.authToken = token;
       this.authUser = response;
       this.authUser.profile_picture = this.authUser.profile_picture && `${this.API_URL}/images/${this.authUser.profile_picture}?auth-token=${this.authToken}`
-    })
-    .catch(err => {
-      console.log(err)
-      return Promise.reject(err);
-    });
+      await this.connectToWebsocket();
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
   }
 
   async destroy() {
@@ -74,4 +76,8 @@ export class SessionService {
     });
   }
   getToken(){return this.authToken}
+
+  connectToWebsocket() {
+    return this.WebsocketService.connect(this.getToken());
+  }
 }
